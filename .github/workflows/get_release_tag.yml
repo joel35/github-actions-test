@@ -11,42 +11,15 @@ jobs:
 
   get_tags:
     runs-on: ubuntu-latest
-    outputs:
-      tag_1: ${{ steps.get_ref_name.outputs.ref_name }}
-      tag_2: ${{ steps.get_ref.outputs.ref }}
     steps:
       - 
         uses: actions/checkout@v3
       - 
-        id: get_ref_name
+        name: Get tag from ref_name
         run: |
           echo "ref_name=${{ github.ref_name }}" >> $GITHUB_ENV
-      - 
-        id: get_ref
-        run: |
-          echo "ref=${{ github.ref }}" >> $GITHUB_ENV
       -
         name: Print environment variables
         run: |
           echo $GITHUB_ENV
 
-  print_tags:
-    needs: get_tags
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        uses: actions/checkout@v3
-      -
-        name: Print outputs
-        run: |
-          echo ${{ needs.get_tags.outputs.tag_1 }}
-          echo ${{ needs.get_tags.outputs.tag_2 }}
-      - 
-        name: Assign outputs to env variables
-        run: |
-          echo "ref_name=${{ needs.get_tags.outputs.tag_1 }}" >> $GITHUB_ENV
-          echo "ref=${{ needs.get_tags.outputs.tag_2 }}" >> $GITHUB_ENV
-      -
-        name: Print environment variables
-        run: |
-          echo $GITHUB_ENV
