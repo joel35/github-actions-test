@@ -21,10 +21,9 @@ jobs:
           
           version=$(echo ${{ env.ref }} | cut -d'/' -f 3)
           
-          echo "TAG_1"=${{ GITHUB_REF_NAME" }} >> $GITHUB_ENV
+          echo "TAG_1"=$GITHUB_REF_NAME >> $GITHUB_ENV
           echo "TAG_2"=${{ github.ref_name }} >> $GITHUB_ENV
           echo "TAG_2"=version >> $GITHUB_ENV 
-
       -
         name: Print environment variables
         run: |
