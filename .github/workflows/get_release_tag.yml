@@ -34,8 +34,19 @@ jobs:
     needs: get_tags
     runs-on: ubuntu-latest
     steps:
+      - 
+        uses: actions/checkout@v3
       -
         name: Print outputs
         run: |
           echo ${{ needs.get_tags.outputs.tag_1 }}
           echo ${{ needs.get_tags.outputs.tag_2 }}
+      - 
+        name: Assign outputs to env variables
+        run: |
+          echo "ref_name=${{ needs.get_tags.outputs.tag_1 }}" >> $GITHUB_ENV
+          echo "ref=${{ needs.get_tags.outputs.tag_2 }}" >> $GITHUB_ENV
+      -
+        name: Print environment variables
+        run: |
+          echo $GITHUB_ENV
