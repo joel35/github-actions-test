@@ -8,7 +8,7 @@ on:
 #   workflow_dispatch:
 
 jobs:
-  build:
+  get_tags:
     runs-on: ubuntu-latest
     steps:
       - 
@@ -16,14 +16,8 @@ jobs:
       - 
         name: Get GitHub release tags
         run: |
-          echo "Tag name from GITHUB_REF_NAME: $GITHUB_REF_NAME"
-          echo "Tag name from github.ref_name: ${{  github.ref_name }}"
-          
-          version=$(echo ${{ env.ref }} | cut -d'/' -f 3)
-          
-          echo "TAG_1"=$GITHUB_REF_NAME >> $GITHUB_ENV
-          echo "TAG_2"=${{ github.ref_name }} >> $GITHUB_ENV
-          echo "TAG_3"=$version >> $GITHUB_ENV
+          echo "REF_NAME"=${{ github.ref_name }} >> $GITHUB_ENV
+          echo "REF"={{ github.ref }} >> $GITHUB_ENV
       -
         name: Print environment variables
         run: |
